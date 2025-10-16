@@ -39,12 +39,14 @@ export default function Banner() {
   };
 
   return (
-    <div className="relative w-full h-[500px] overflow-hidden rounded-2xl">
+    <section className="w-full px-4 sm:px-6 lg:px-8 py-6" aria-label="Banner principal">
+      <div className="w-full max-w-[1600px] mx-auto relative h-[300px] sm:h-[400px] lg:h-[500px] overflow-hidden rounded-2xl">
+
       <AnimatePresence>
         <motion.img
           key={slides[index].image}
           src={slides[index].image}
-          alt={`banner-${index}`}
+          alt={slides[index].text}
           className="absolute w-full h-full object-cover"
           initial={{ opacity: 0, scale: 1.05 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -72,28 +74,33 @@ export default function Banner() {
       </AnimatePresence>
 
       <button
-        onClick={prevImage}
-        className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/50 hover:bg-white text-black p-2 rounded-full"
-      >
-        <ChevronLeft size={24} />
-      </button>
-      <button
-        onClick={nextImage}
-        className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/50 hover:bg-white text-black p-2 rounded-full"
-      >
-        <ChevronRight size={24} />
-      </button>
+          onClick={prevImage}
+          className="absolute left-2 sm:left-4 top-1/2 transform -translate-y-1/2 bg-white/50 hover:bg-white text-black p-2 rounded-full transition-colors"
+          aria-label="Imagen anterior"
+        >
+          <ChevronLeft size={24} />
+        </button>
+        <button
+          onClick={nextImage}
+          className="absolute right-2 sm:right-4 top-1/2 transform -translate-y-1/2 bg-white/50 hover:bg-white text-black p-2 rounded-full transition-colors"
+          aria-label="Siguiente imagen"
+        >
+          <ChevronRight size={24} />
+        </button>
 
-      <div className="absolute bottom-4 w-full flex justify-center gap-2">
-        {slides.map((_, i) => (
-          <div
-            key={i}
-            className={`w-3 h-3 rounded-full ${
-              i === index ? "bg-white" : "bg-white/50"
-            }`}
-          />
-        ))}
+        <div className="absolute bottom-4 w-full flex justify-center gap-2">
+          {slides.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setIndex(i)}
+              className={`w-3 h-3 rounded-full transition-colors ${
+                i === index ? "bg-white" : "bg-white/50"
+              }`}
+              aria-label={`Ir a imagen ${i + 1}`}
+            />
+          ))}
+        </div>
       </div>
-    </div>
+    </section>
   );
 }

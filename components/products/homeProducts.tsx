@@ -1,12 +1,11 @@
 "use client";
 
 import React from "react";
-import { ShoppingCart, Heart } from "lucide-react";
+import { Heart } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 
-// Tipo de producto
 interface Product {
   id: string;
   name: string;
@@ -16,7 +15,6 @@ interface Product {
   rating: number;
 }
 
-// Data de ejemplo - reemplaza con tu import real
 const products: Product[] = [
   {
     id: "1",
@@ -59,8 +57,6 @@ const products: Product[] = [
     rating: 4.5,
   },
 ];
-
-// Componente de estrellas de rating
 function StarRating({ rating }: { rating: number }) {
   return (
     <div className="flex items-center gap-1">
@@ -84,10 +80,10 @@ function StarRating({ rating }: { rating: number }) {
   );
 }
 
-export default function ProductGrid() {
+export default function ProductHome() {
   return (
     <div className="my-8 w-full max-w-7xl mx-auto px-6">
-      <h2 className="text-3xl font-bold text-gray-900 mb-8">Popular products</h2>
+      <h2 className="text-3xl font-bold text-gray-900 mb-8">Productos Populares</h2>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
         {products.map((product) => (
@@ -129,7 +125,7 @@ export default function ProductGrid() {
                     size="sm"
                     className="text-sm hover:bg-gray-900 hover:text-white transition-colors"
                   >
-                    Buy now
+                    Comprar
                   </Button>
                 </div>
               </div>
