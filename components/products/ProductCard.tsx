@@ -8,6 +8,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { products } from "@/data/products"
+import Link from "next/link";
 import Image from "next/image";
 
 
@@ -180,7 +181,6 @@ export default function ProductCard() {
       </div>
 
       <div className="flex gap-8">
-        {/* Filtros Desktop */}
         <aside className="hidden md:block w-64 flex-shrink-0">
           <div className="sticky top-6 bg-white p-6 rounded-lg border border-gray-200">
             <FilterSection />
@@ -222,7 +222,8 @@ export default function ProductCard() {
             </div>
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-              {filteredProducts.map((product) => (
+                {filteredProducts.map((product) => (
+                <Link key={product.id} href={`/productos/${product.id}`}>
                 <Card
                   key={product.id}
                   className="group relative overflow-hidden border border-gray-200 hover:shadow-lg transition-shadow duration-300"
@@ -256,17 +257,11 @@ export default function ProductCard() {
                         <span className="text-2xl font-bold text-gray-900">
                           ${product.price}
                         </span>
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          className="text-sm hover:bg-gray-900 hover:text-white transition-colors"
-                        >
-                          Comprar
-                        </Button>
                       </div>
                     </div>
                   </CardContent>
-                </Card>
+                    </Card>
+                  </Link>
               ))}
             </div>
           )}

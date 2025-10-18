@@ -29,8 +29,8 @@ export default function Navbar() {
           <Link href="/" className="hover:text-blue-600 transition-colors">
             Home
           </Link>
-          <Link href="/pages/productos" className="hover:text-blue-600 transition-colors">
-            Shop
+          <Link href="/productos" className="hover:text-blue-600 transition-colors">
+            Tienda
           </Link>
           <Link href="/about" className="hover:text-blue-600 transition-colors">
             About Us

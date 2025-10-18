@@ -66,7 +66,7 @@ export default function Banner() {
         >
           <h2 className="text-3xl md:text-5xl font-bold drop-shadow-lg">
             {slides[index].text}
-          </h2>
+            </h2>
           <Button variant="default" size="lg" >
             Ver productos
           </Button>
