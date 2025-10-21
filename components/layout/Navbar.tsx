@@ -9,7 +9,6 @@ import Link from "next/link";
 import { useState } from "react";
 import { useCart} from "@/contexts/CartContext";
 export default function Navbar() {
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { totalItems } = useCart();
 

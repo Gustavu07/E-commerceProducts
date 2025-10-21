@@ -57,35 +57,35 @@ export default function Cart() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="bg-white border-b">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-3xl font-bold text-gray-900">
-                Carrito de Compras
-              </h1>
-              <p className="text-gray-600 mt-1">
-                {totalItems} {totalItems === 1 ? "producto" : "productos"} en tu carrito
-              </p>
-            </div>
-            <Link href="/productos">
-              <Button variant="ghost">
-                <ArrowLeft className="w-4 h-4 mr-2" />
-                Seguir comprando
-              </Button>
-            </Link>
+      {/* Header */}
+      <div className="bg-white border-b sticky top-0 z-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div>
+            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">Carrito de Compras</h1>
+            <p className="text-gray-600 mt-1 text-sm sm:text-base">
+              {totalItems} {totalItems === 1 ? "producto" : "productos"} en tu carrito
+            </p>
           </div>
+          <Link href="/productos">
+            <Button variant="ghost" size="sm" className="flex items-center gap-2">
+              <ArrowLeft className="w-4 h-4" />
+              Seguir comprando
+            </Button>
+          </Link>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      {/* Main grid */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8">
+          {/* Cart items */}
           <div className="lg:col-span-2 space-y-4">
             {items.map((item) => (
-              <Card key={item.product.id}>
-                <CardContent className="p-4 sm:p-6">
-                  <div className="flex gap-4">
-                    <div className="relative w-24 h-24 sm:w-32 sm:h-32 flex-shrink-0 bg-gray-100 rounded-lg overflow-hidden">
+              <Card key={item.product.id} className="overflow-hidden">
+                <CardContent className="p-3 sm:p-6">
+                  <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
+                    {/* Imagen */}
+                    <div className="relative w-full sm:w-32 h-40 sm:h-32 flex-shrink-0 bg-gray-100 rounded-lg overflow-hidden mx-auto sm:mx-0">
                       <Image
                         src={item.product.image}
                         alt={item.product.name}
@@ -93,11 +93,13 @@ export default function Cart() {
                         className="object-cover"
                       />
                     </div>
+
+                    {/* Info */}
                     <div className="flex-1 min-w-0">
-                      <div className="flex justify-between items-start mb-2">
-                        <div className="flex-1 min-w-0 mr-4">
+                      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-start gap-3">
+                        <div className="flex-1 min-w-0">
                           <Link href={`/productos/${item.product.id}`}>
-                            <h3 className="font-semibold text-gray-900 hover:text-blue-600 transition-colors line-clamp-2">
+                            <h3 className="font-semibold text-gray-900 hover:text-blue-600 transition-colors text-base sm:text-lg line-clamp-2">
                               {item.product.name}
                             </h3>
                           </Link>
@@ -113,19 +115,21 @@ export default function Cart() {
                           )}
                         </div>
 
-                        <div className="text-right">
-                          <p className="text-lg font-bold text-gray-900">
-                            ${item.product.price}
-                          </p>
+                        <div className="text-right w-full sm:w-auto">
+                          <p className="text-lg font-bold text-gray-900">${item.product.price}</p>
                           <p className="text-sm text-gray-500">c/u</p>
                         </div>
                       </div>
-                      <div className="flex items-center justify-between mt-4">
-                        <div className="flex items-center border border-gray-300 rounded-lg">
+
+                      {/* Controls */}
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between mt-4 gap-3">
+                        <div className="flex items-center justify-center sm:justify-start border border-gray-300 rounded-lg w-fit mx-auto sm:mx-0">
                           <Button
                             variant="ghost"
                             size="sm"
-                            onClick={() => updateQuantity(item.product.id, item.quantity - 1)}
+                            onClick={() =>
+                              updateQuantity(item.product.id, item.quantity - 1)
+                            }
                             className="px-3 py-1 hover:bg-gray-100"
                           >
                             <Minus className="w-4 h-4" />
@@ -136,17 +140,19 @@ export default function Cart() {
                           <Button
                             variant="ghost"
                             size="sm"
-                            onClick={() => updateQuantity(item.product.id, item.quantity + 1)}
+                            onClick={() =>
+                              updateQuantity(item.product.id, item.quantity + 1)
+                            }
                             className="px-3 py-1 hover:bg-gray-100"
                           >
                             <Plus className="w-4 h-4" />
                           </Button>
                         </div>
 
-                        <div className="flex items-center gap-4">
+                        <div className="flex items-center justify-between sm:justify-end gap-3">
                           <div className="text-right">
                             <p className="text-sm text-gray-500">Subtotal</p>
-                            <p className="text-xl font-bold text-gray-900">
+                            <p className="text-lg sm:text-xl font-bold text-gray-900">
                               ${(item.product.price * item.quantity).toFixed(2)}
                             </p>
                           </div>
@@ -176,16 +182,19 @@ export default function Cart() {
             </Button>
           </div>
 
+          {/* Summary */}
           <div className="lg:col-span-1">
-            <Card className="sticky top-24">
-              <CardContent className="p-6">
-                <h3 className="text-xl font-bold text-gray-900 mb-6">
+            <Card className="sticky top-20">
+              <CardContent className="p-4 sm:p-6">
+                <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-4 sm:mb-6">
                   Resumen de compra
                 </h3>
 
-                <div className="space-y-4 mb-6">
+                <div className="space-y-4 mb-6 text-sm sm:text-base">
                   <div className="flex justify-between text-gray-600">
-                    <span>Subtotal ({totalItems} {totalItems === 1 ? "producto" : "productos"})</span>
+                    <span>
+                      Subtotal ({totalItems} {totalItems === 1 ? "producto" : "productos"})
+                    </span>
                     <span className="font-semibold">${totalPrice.toFixed(2)}</span>
                   </div>
                   <div className="flex justify-between text-gray-600">
@@ -203,23 +212,20 @@ export default function Cart() {
                 </div>
 
                 <Button
-              size="lg"
-              className="w-full bg-blue-600 hover:bg-blue-700 text-white mb-3 relative overflow-visible hover:-translate-y-1 transition-transform"
-              onClick={handleCheckout}>
-              Pagar
+                  size="lg"
+                  className="w-full bg-blue-600 hover:bg-blue-700 text-white mb-3 hover:-translate-y-1 transition-transform"
+                  onClick={handleCheckout}
+                >
+                  Pagar
                 </Button>
-                
+
                 <Link href="/productos">
-                  <Button
-                    variant="outline"
-                    size="lg"
-                    className="w-full"
-                  >
+                  <Button variant="outline" size="lg" className="w-full">
                     Continuar comprando
                   </Button>
                 </Link>
 
-                <div className="mt-6 space-y-3 text-sm text-gray-600">
+                <div className="mt-6 space-y-3 text-xs sm:text-sm text-gray-600">
                   <div className="flex items-start gap-2">
                     <div className="w-2 h-2 bg-green-500 rounded-full mt-1.5"></div>
                     <p>Envío gratis en compras mayores a $50</p>
