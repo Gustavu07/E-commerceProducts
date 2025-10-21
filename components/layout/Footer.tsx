@@ -4,8 +4,7 @@ import { Facebook, Instagram, Twitter, Youtube } from "lucide-react";
 
 export default function Footer() {
   return (
-    <footer className="bg-black text-white mt-10">
-      {/* Sección superior */}
+    <footer id="contact" className="bg-black text-white mt-10">
       <div className="max-w-7xl mx-auto px-6 py-12 grid grid-cols-2 md:grid-cols-4 gap-8 border-b border-gray-700">
         <div>
           <h3 className="font-semibold mb-4 text-sm uppercase">Productos</h3>
@@ -48,7 +47,6 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* Sección inferior */}
       <div className="max-w-7xl mx-auto px-6 py-6 flex flex-col md:flex-row justify-between items-center text-xs text-gray-500">
         <p>© {new Date().getFullYear()} E-Shop. Todos los derechos reservados.</p>
         <div className="flex gap-4 mt-3 md:mt-0">
