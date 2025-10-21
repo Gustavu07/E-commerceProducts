@@ -8,17 +8,18 @@ import { Button } from "@/components/ui/button";
 
 const slides = [
   {
-    image: "/sm_controller_image.png",
+    image: "/trending-1.png",
+    text: "Nueva Colección 2025",
+  },
+  {
+    image: "/control.jpg",
     text: "Ofertas de Temporada",
   },
   {
     image: "/trending-2.png",
     text: "Rompiendo con Estilos",
   },
-  {
-    image: "/trending-3.png",
-    text: "Nueva Colección 2025",
-  },
+  
 ];
 
 export default function Banner() {

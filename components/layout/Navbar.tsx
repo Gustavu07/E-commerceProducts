@@ -1,8 +1,15 @@
 "use client";
 
-import { Menu, ShoppingCart, User, Search } from "lucide-react";
+import { Menu, ShoppingCart, User, Search, Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
@@ -32,10 +39,10 @@ export default function Navbar() {
           <Link href="/productos" className="hover:text-blue-600 transition-colors">
             Tienda
           </Link>
-          <Link href="/about" className="hover:text-blue-600 transition-colors">
+          <Link href="/" className="hover:text-blue-600 transition-colors">
             About Us
           </Link>
-          <Link href="/contact" className="hover:text-blue-600 transition-colors">
+          <Link href="/" className="hover:text-blue-600 transition-colors">
             Contact
           </Link>
         </div>
@@ -71,10 +78,26 @@ export default function Navbar() {
               )}
             </Button>
           </Link>
+          <Link href="/favoritos">
+            <Button variant="ghost" size="icon">
+              <Heart className="w-5 h-5" />
+            </Button>
+          </Link>
 
-          <Button variant="ghost" size="icon">
-            <User className="w-5 h-5" />
-          </Button>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" size="icon" className="relative">
+                <User className="w-5 h-5" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="w-48">
+              <DropdownMenuSeparator />
+              <DropdownMenuItem 
+              >
+                <span>Cerrar sesión</span>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
 
           <Button 
             variant="ghost" 
