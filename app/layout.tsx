@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import { CartProvider } from "@/contexts/CartContext";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -15,7 +16,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "E-Commerce MVP",
+  title: "TiendaMax",
   description: "E-commerce moderno desarrollado con Next.js y Tailwind CSS",
 };
 
@@ -27,11 +28,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        
+        <CartProvider>
         <Navbar />
-        <main className="flex flex-col gap-6">{children}</main>
-        <Footer />
+          <main className="flex flex-col gap-6">{children}</main>
+          <Footer />
+        </CartProvider>
       </body>
     </html>
   );

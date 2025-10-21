@@ -1,25 +1,32 @@
 "use client";
 
 import React, { useState } from "react";
-import { Heart, ShoppingCart, Minus, Plus, Star, Truck, Shield, ArrowLeft } from "lucide-react";
+import { Heart, ShoppingCart, Minus, Plus, Star, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import Image from "next/image";
 import Link from "next/link";
+import { useCart } from "@/contexts/CartContext"; // <-- crea este pequeño hook helper
 import { Product } from "@/types/productos";
 
 interface ProductDetailProps {
   product: Product;
 }
-
 export default function ProductDetail({ product }: ProductDetailProps) {
   const [quantity, setQuantity] = useState(1);
-
+  const { addItem } = useCart();
+  const [isAdding, setIsAdding] = useState(false);
   const incrementQuantity = () => setQuantity((prev) => prev + 1);
   const decrementQuantity = () => setQuantity((prev) => (prev > 1 ? prev - 1 : 1));
-
   const totalPrice = (product.price * quantity).toFixed(2);
 
+  const handleAddToCart = () => {
+    addItem(product, quantity);
+    setIsAdding(true);
+    setTimeout(() => {
+      setIsAdding(false);
+      setQuantity(1); // Resetear cantidad después de agregar
+    }, 1000);
+  };
  return (
     <div className="min-h-screen bg-gray-50">
       <div className="bg-white border-b">
@@ -38,9 +45,7 @@ export default function ProductDetail({ product }: ProductDetailProps) {
         </div>
       </div>
 
-      {/* Main Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Back Button */}
         <Link href="/productos">
           <Button variant="ghost" className="mb-6 -ml-4">
             <ArrowLeft className="w-4 h-4 mr-2" />
@@ -97,8 +102,6 @@ export default function ProductDetail({ product }: ProductDetailProps) {
                 {product.rating} ({Math.floor(Math.random() * 100) + 20} reseñas)
               </span>
             </div>
-
-            {/* Price */}
             <div className="border-t border-b border-gray-200 py-6">
               <div className="flex items-baseline gap-3">
                 <span className="text-4xl font-bold text-gray-900">
@@ -149,48 +152,6 @@ export default function ProductDetail({ product }: ProductDetailProps) {
                 </span>
               </div>
             </div>
-
-            {/* Action Buttons */}
-            <div className="flex flex-col sm:flex-row gap-3 pt-4">
-              <Button
-                size="lg"
-                className="flex-1 bg-blue-600 hover:bg-blue-700 text-white"
-              >
-                <ShoppingCart className="w-5 h-5 mr-2" />
-                Agregar al carrito
-              </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                className="flex-1"
-              >
-                Comprar ahora
-              </Button>
-            </div>
-
-            {/* Features */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-6">
-              <Card>
-                <CardContent className="p-4 flex items-start gap-3">
-                  <Truck className="w-6 h-6 text-blue-600 flex-shrink-0 mt-0.5" />
-                  <div>
-                    <p className="font-semibold text-gray-900">Envío gratis</p>
-                    <p className="text-sm text-gray-600">En compras mayores a $50</p>
-                  </div>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardContent className="p-4 flex items-start gap-3">
-                  <Shield className="w-6 h-6 text-blue-600 flex-shrink-0 mt-0.5" />
-                  <div>
-                    <p className="font-semibold text-gray-900">Garantía</p>
-                    <p className="text-sm text-gray-600">12 meses de garantía</p>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-
-            {/* Stock Status */}
             <div className="border-t border-gray-200 pt-6">
               <div className="flex items-center gap-2">
                 <div className="w-3 h-3 bg-green-500 rounded-full"></div>
@@ -199,47 +160,24 @@ export default function ProductDetail({ product }: ProductDetailProps) {
                 </span>
               </div>
             </div>
-          </div>
-        </div>
-
-        {/* Additional Info Tabs */}
-        <div className="mt-16">
-          <div className="border-b border-gray-200">
-            <div className="flex gap-8">
-              <button className="pb-4 border-b-2 border-blue-600 font-semibold text-blue-600">
-                Especificaciones
-              </button>
-              <button className="pb-4 border-b-2 border-transparent font-semibold text-gray-500 hover:text-gray-900">
-                Reseñas
-              </button>
-            </div>
-          </div>
-
-          <div className="py-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
-                <h4 className="font-semibold text-gray-900 mb-3">
-                  Características principales
-                </h4>
-                <ul className="space-y-2 text-gray-600">
-                  <li>• Calidad premium garantizada</li>
-                  <li>• Diseño moderno y elegante</li>
-                  <li>• Fácil de usar y mantener</li>
-                  <li>• Compatible con múltiples dispositivos</li>
-                </ul>
+            <div className="flex flex-col sm:flex-row gap-3 pt-4">
+              <Button
+                size="lg"
+               className="flex-1 bg-blue-600 hover:bg-blue-700 text-white"
+                onClick={handleAddToCart}
+                disabled={isAdding}
+              >
+                <ShoppingCart className="w-5 h-5 mr-2" />
+                {isAdding ? "¡Agregado!" : "Agregar al carrito"}
+              </Button>
+           </div>
+           {isAdding && (
+              <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+                <p className="text-green-800 text-sm font-medium">
+                  ✓ Producto agregado al carrito
+                </p>
               </div>
-              <div>
-                <h4 className="font-semibold text-gray-900 mb-3">
-                  Información técnica
-                </h4>
-                <ul className="space-y-2 text-gray-600">
-                  <li>• Categoría: {product.category}</li>
-                  <li>• Marca: {product.brand}</li>
-                  <li>• Código: {product.id}</li>
-                  <li>• Valoración: {product.rating}/5.0</li>
-                </ul>
-              </div>
-            </div>
+            )}
           </div>
         </div>
       </div>

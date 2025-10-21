@@ -3,11 +3,12 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 
 const slides = [
   {
-    image: "/trending-1.png",
+    image: "/sm_controller_image.png",
     text: "Ofertas de Temporada",
   },
   {
@@ -67,9 +68,11 @@ export default function Banner() {
           <h2 className="text-3xl md:text-5xl font-bold drop-shadow-lg">
             {slides[index].text}
             </h2>
-          <Button variant="default" size="lg" >
-            Ver productos
-          </Button>
+          <Link href="/productos">
+            <Button variant="default" size="lg" >
+              Ver productos
+            </Button>
+          </Link>
         </motion.div>
       </AnimatePresence>
 

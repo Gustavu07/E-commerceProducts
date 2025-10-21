@@ -6,14 +6,14 @@ import { Input } from "@/components/ui/input";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-
+import { useCart} from "@/contexts/CartContext";
 export default function Navbar() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const { totalItems } = useCart();
 
   return (
     <nav className="w-full bg-white shadow-sm sticky top-0 z-50">
       <div className="max-w-7xl mx-auto flex items-center justify-between px-4 sm:px-6 py-4 gap-4">
-        
         <div className="flex items-center gap-2 flex-shrink-0">
           <Image 
             src="/shopify-icon.svg" 
@@ -22,7 +22,7 @@ export default function Navbar() {
             height={40}
             className="w-8 h-8 sm:w-10 sm:h-10"
           />
-          <span className="hidden sm:block font-bold text-xl">Mi Tienda</span>
+          <span className="hidden sm:block font-bold text-xl">TiendaMax</span>
         </div>
 
         <div className="hidden lg:flex gap-6 text-sm font-medium">
@@ -61,12 +61,16 @@ export default function Navbar() {
             <Search className="w-5 h-5" />
           </Button>
 
-          <Button variant="ghost" size="icon" className="relative">
-            <ShoppingCart className="w-5 h-5" />
-            <span className="absolute -top-1 -right-1 bg-blue-600 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
-              3
-            </span>
-          </Button>
+          <Link href="/carrito">
+            <Button variant="ghost" size="icon" className="relative">
+              <ShoppingCart className="w-5 h-5" />
+              {totalItems > 0 && (
+                <span className="absolute -top-1 -right-1 bg-blue-600 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center font-semibold">
+                  {totalItems}
+                </span>
+              )}
+            </Button>
+          </Link>
 
           <Button variant="ghost" size="icon">
             <User className="w-5 h-5" />

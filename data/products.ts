@@ -91,4 +91,14 @@ export const products: Product[] = [
     category: "Gaming",
     brand: "Sony",
   },
+  {
+    id: "10",
+    name: "Garmin Forerunner 945",
+    description: "The Garmin Forerunner 945 smartwatch...",
+    price: 349.99,
+    image: "/products/venu_watch_image.png",
+    rating: 4.5,
+    category: "Wearables",
+    brand: "Garmin",
+  },
 ];
